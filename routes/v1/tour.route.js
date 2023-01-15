@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const tourController = require("../../controllers/tour.controller");
+const viewCounter = require("../../middleware/viewCounter");
 
 router.route("/trending").get(tourController.getTrendingTours);
 router.route("/cheapest").get(tourController.getCheapestTours);

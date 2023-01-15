@@ -16,19 +16,49 @@ exports.getTours = async (req, res, next) => {
   }
 };
 
-exports.getToursById = (req, res, next) => {
-  console.log("Hello From Get Tours By ID Route");
-  res.send("Hello From Get Tours By ID Route");
+exports.getToursById = async (req, res, next) => {
+  try {
+    const tour = await tourServices.getTourByIdServices(req.params.id);
+    res.status(200).send({
+      status: "success",
+      data: tour,
+    });
+  } catch (error) {
+    res.status(500).send({
+      status: "failed",
+      message: error.message,
+    });
+  }
 };
 
-exports.getTrendingTours = (req, res, next) => {
-  console.log("Hello From Get Trending Tours Route");
-  res.send("Hello From Get Trending Tours Route");
+exports.getTrendingTours = async (req, res, next) => {
+  try {
+    const trendingTours = await tourServices.getTrendingTourServices();
+    res.status(200).send({
+      status: "success",
+      data: trendingTours,
+    });
+  } catch (error) {
+    res.status(500).send({
+      status: "failed",
+      message: error.message,
+    });
+  }
 };
 
-exports.getCheapestTours = (req, res, next) => {
-  console.log("Hello From Get Cheapest Tours Route");
-  res.send("Hello From Get Cheapest Tours Route");
+exports.getCheapestTours = async (req, res, next) => {
+  try {
+    const cheapestTours = await tourServices.getCheapestTourServices();
+    res.status(200).send({
+      status: "success",
+      data: cheapestTours,
+    });
+  } catch (error) {
+    res.status(500).send({
+      status: "failed",
+      message: error.message,
+    });
+  }
 };
 
 // Create a new tour package
@@ -47,9 +77,23 @@ exports.createTours = async (req, res, next) => {
   }
 };
 
-exports.updateTours = (req, res, next) => {
-  console.log("Hello From Update Tours Route");
-  res.send("Hello From Update Tours Route");
+exports.updateTours = async (req, res, next) => {
+  try {
+    const result = await tourServices.updateTourServices(
+      req.params.id,
+      req.body
+    );
+    res.status(200).send({
+      status: "success",
+      message: "Data updated successfully",
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).send({
+      status: "failed",
+      message: error.message,
+    });
+  }
 };
 
 exports.deleteTours = (req, res, next) => {

@@ -46,6 +46,10 @@ const tourSchema = mongoose.Schema({
     minLength: [10, "Name must be at least 10 characters."],
     maxLength: [100, "Name must be at most 100 characters."],
   },
+  views: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const Tour = mongoose.model("Tour", tourSchema);
