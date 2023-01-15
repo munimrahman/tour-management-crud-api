@@ -6,6 +6,8 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+// tour routes
 app.use("/api/v1/tours", tourRouter);
 
 app.get("/", (req, res) => {
