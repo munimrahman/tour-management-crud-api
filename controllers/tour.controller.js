@@ -96,7 +96,18 @@ exports.updateTours = async (req, res, next) => {
   }
 };
 
-exports.deleteTours = (req, res, next) => {
-  console.log("Hello From Delete Tours Route");
-  res.send("Hello From Delete Tours Route");
+exports.deleteTours = async (req, res, next) => {
+  try {
+    const result = await tourServices.deleteTourServices(req.params.id);
+    res.status(200).send({
+      status: "success",
+      message: "Data Deleted successfully",
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).send({
+      status: "failed",
+      message: error.message,
+    });
+  }
 };

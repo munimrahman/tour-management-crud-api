@@ -38,3 +38,8 @@ exports.updateTourServices = async (id, data) => {
   });
   return result;
 };
+
+exports.deleteTourServices = async (id, data) => {
+  const result = await Tour.deleteOne({ _id: id });
+  return result;
+};
