@@ -2,7 +2,29 @@ const tourServices = require("../services/tour.services");
 
 exports.getTours = async (req, res, next) => {
   try {
-    const tours = await tourServices.getToursServices();
+    const query = req.query;
+    const queries = {};
+    // const filters = { ...req.query };
+    // { fields: 'name,image', sort: 'name,price', page: '1', limit: '3' }
+    // const excludeFields = ["sort", "page", "limit"];
+    // excludeFields.forEach((field) => delete filters[field]);
+    // console.log(filters);
+    // { fields: 'name,image' }
+    if (query.fields) {
+      const fields = query.fields.split(",").join(" ");
+      queries.fields = fields;
+    }
+    if (query.sort) {
+      const sortBy = query.sort.split(",").join(" ");
+      queries.sortBy = sortBy;
+    }
+    // pagination
+    const { page = 1, limit = 3 } = query;
+    const skip = (page - 1) * limit;
+    queries.skip = skip;
+    queries.limit = limit;
+
+    const tours = await tourServices.getToursServices(queries);
     res.status(200).send({
       status: "success",
       count: tours.count,
@@ -61,7 +83,6 @@ exports.getCheapestTours = async (req, res, next) => {
   }
 };
 
-// Create a new tour package
 exports.createTours = async (req, res, next) => {
   try {
     const result = await tourServices.createTourServices(req.body);

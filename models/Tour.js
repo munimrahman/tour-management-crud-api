@@ -67,3 +67,4 @@ current_capacity: the number of people currently booked on the tour.
 tour_guide: a reference to the user who is serving as the tour guide.
 bookings: an array of references to the bookings made for the tour.
 */
+["name", "locations", "price", "image", "description"];
